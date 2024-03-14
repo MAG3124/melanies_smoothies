@@ -4,7 +4,7 @@ from snowflake.snowpark.functions import col
 import requests
 
 # Write directly to the app
-st.title(":cup_with_straw: Customize Your Smoothie :cup_with_straw:")
+st.title(":cup_with_straw: Customize Your Smoothie :brain:")
 st.write(
     """Choose the fruits you want in your custom smoothie!"""
 )
@@ -16,7 +16,12 @@ cnx = st.connection("snowflake")
 session = cnx.session()
 
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit_name'),col('search_on'))
-st.dataframe(data=my_dataframe, use_container_width=True)
+#st.dataframe(data=my_dataframe, use_container_width=True)
+#st.stop()
+
+#add pandas dataframe
+pd_df=my_dataframe.to_pandas()
+st.dataframe(pd_df)
 st.stop()
 
 ingredients_list = st.multiselect(
